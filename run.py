@@ -8,7 +8,7 @@ import urlparse
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
-conn = psycopg2.connect(
+db = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
     password=url.password,
@@ -16,7 +16,6 @@ conn = psycopg2.connect(
     port=url.port
 )
 
-db = psycopg2.connect (database="slitli", user="slitliadmin", password="addmin45")
 cur = db.cursor()
 db.autocommit = True
 
