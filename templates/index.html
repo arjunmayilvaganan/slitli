@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Slitli URL Shortener</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-theme.min.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='mystylesheet.css') }}"/>
+</head>
+<body>
+	<div class="container div-centralise container-fluid col-lg-4 col-md-6 col-sm-8 col-xs-10">
+		<h2>Slit URL</h2>
+		<form method="post" role="form" action="">
+			<div class="form-group">
+				<label for="long-url">Long URL :</label>
+				<input type="url" class="form-control" id="long-url" name="long-url" placeholder="Enter Long URL">
+			</div>
+			<div class="form-group">
+				<label for="custom-alias">Custom Alias (Optional) :</label>
+				<input type="text" class="form-control" id="custom-alias" name="custom-alias" placeholder="Enter Custom Alias (Optional)" maxlength="10">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary center-block" style="width:100%;">Slit</button>
+			</div>
+			{% if slit_url %}
+				
+			<div class="form-group">
+				<label for="slit-url">Slit URL:</label>
+				<input type="text" class="form-control" name="slit-url" id="slit-url" value="{{slit_url}}">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary center-block" type="button" style="width:100%;" data-clipboard-demo data-clipboard-target="#slit-url">
+					<img class="clippy" src="{{ url_for('static', filename='clippy.svg') }}" width="13" alt="Copy to clipboard">
+				</button>
+			</div>
+			
+			{% endif %}
+		</form>
+	</div>
+	
+	
+	<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='clipboard.min.js') }}"></script>
+	<script>
+	    var clipboard = new Clipboard('.btn');
+	    clipboard.on('success', function(e) {
+	        console.log(e);
+	    });
+	    clipboard.on('error', function(e) {
+	        console.log(e);
+	    });
+	</script>
+</body>
+</html>
