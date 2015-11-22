@@ -1,14 +1,26 @@
-import psycopg2 as dbapi2
+import os
+import psycopg2
 import random
 from flask import Flask, request, render_template, redirect
 import string, sqlite3
-from urlparse import urlparse
+import urlparse
 
-db = dbapi2.connect (database="slitli", user="slitliadmin", password="addmin45")
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+
+db = psycopg2.connect (database="slitli", user="slitliadmin", password="addmin45")
 cur = db.cursor()
 db.autocommit = True
 
-host = 'http://localhost:5000/'
+myhost = 'http://localhost:5000/'
 app = Flask(__name__)
 
 
@@ -20,14 +32,14 @@ def home():
         print "***long-url:",long_url,"***" #
         alias = request.form.get('custom-alias')
         print "***custom-alias:",alias,"***" #
-        if urlparse(long_url).scheme == '':
+        if urlparse.urlparse(long_url).scheme == '':
             long_url = 'http://' + long_url
         if alias == '':
             alias = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqstuvwxyz') for i in range(6))
         cur.execute ("INSERT INTO urls (longurl,alias,clicks) VALUES (%s,%s,0)",(long_url,alias))
         db.commit ()
         print "***inserted***" #
-        return render_template('index.html',slit_url= host + alias)
+        return render_template('index.html',slit_url= myhost + alias)
     return render_template('index.html')
 
 
@@ -46,4 +58,4 @@ def redirect_short_url(alias):
 
 if __name__ == '__main__':
     print "***initiated***" #
-    app.run(host="0.0.0.0")
+    app.run()
