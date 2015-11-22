@@ -1,0 +1,10 @@
+{
+  "name": "Slitli",
+  "description": "A URL Shortener application based on Flask and Postgres.",
+  "website": "http://slit.li/",
+  "logo": "http://slit.li/logo.png",
+  "image": "heroku/python",
+  "repository": "https://github.com/",
+  "keywords": ["python", "flask","postgres" ],
+  "addons": [ "heroku-postgresql" ]
+}
