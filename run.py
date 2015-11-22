@@ -20,7 +20,7 @@ db = psycopg2.connect (database="slitli", user="slitliadmin", password="addmin45
 cur = db.cursor()
 db.autocommit = True
 
-myhost = 'http://localhost:5000/'
+myhost = 'http://slitli.heroku.com/'
 app = Flask(__name__)
 
 
