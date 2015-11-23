@@ -22,7 +22,22 @@ db.autocommit = True
 myhost = 'http://slitli.heroku.com/'
 app = Flask(__name__)
 
+def valid(long_url):
+    protocol_exists=False
+    protocols=["http://","https://","ftp://","ftps://"]
+    if "." not in long_url:
+        return False
+    if not long_url.index('.') < len(long_url)-1:
+        return False
+    for protocol in protocols:
+        if protocol in long_url:
+            protocol_exists=True
+    return protocol_exists
 
+def already_exists(alias):
+    cur.execute("SELECT longurl FROM urls WHERE alias = %s", (alias,))
+    return cur.fetchone() is not None
+    
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -33,12 +48,20 @@ def home():
         print "***custom-alias:",alias,"***" #
         if urlparse.urlparse(long_url).scheme == '':
             long_url = 'http://' + long_url
+        if not valid(long_url):
+            print "validation",long_url #
+            return render_template('index.html',err_msg = "Enter a Valid URL.")
         if alias == '':
             alias = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqstuvwxyz') for i in range(6))
+            while already_exists(alias):
+                alias = ''.join(random.choice('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqstuvwxyz') for i in range(6))
+        if not alias.isalnum():
+            return render_template('index.html',err_msg = "Please Enter a Valid Alphanumeric Alias or leave the field empty.")
+        if already_exists(alias):
+            return render_template('index.html',err_msg = "Alias already taken.")
         cur.execute ("INSERT INTO urls (longurl,alias,clicks) VALUES (%s,%s,0)",(long_url,alias))
-        db.commit ()
         print "***inserted***" #
-        return render_template('index.html',slit_url= myhost + alias)
+        return render_template('index.html',slit_url = myhost + alias)
     return render_template('index.html')
 
 
@@ -59,3 +82,4 @@ if __name__ == '__main__':
     print "***initiated***" #
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0',port=port)
+    app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
