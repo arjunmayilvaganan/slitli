@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8"/>
-	<title>Slitli URL Shortener - 404</title>
+	<title>Slitli URL Shortener - Stats</title>
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}"/>
 	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-theme.min.css') }}"/>
@@ -11,15 +11,21 @@
 <body>
 	<div class="container div-centralise container-fluid col-lg-4 col-md-6 col-sm-8 col-xs-10">
 		<div class="jumbotron">
-			<h1>404</h1> 
-			<p>Currently, there is no webpage linked with this Alias.</p>
-			<a href="http://slitli.herokuapp.com">
-				<button class="btn btn-primary center-block" style="width:100%;">
-					Take me to Slitli Home Page.
-				</button>
-			</a>
+			<h1>Click Stats</h1> 
+			<p>The URL
+				<a href="{{ long_url }}"><b>{{ long_url }}</b></a>
+					has been accessed 
+					<b>{{ clicks }}</b>
+					times through the Slit URL
+					<a href="{{ slit_url }}"><b>{{ slit_url }}</b></a>
+				</p>
+				<a href="http://slitli.herokuapp.com">
+					<button class="btn btn-primary center-block" style="width:100%;">
+						Take me to Slitli Home Page.
+					</button>
+				</a>
+			</div>
 		</div>
-	</div>
 	
 	
 	<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>

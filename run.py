@@ -37,7 +37,15 @@ def valid(long_url):
 def already_exists(alias):
     cur.execute("SELECT longurl FROM urls WHERE alias = %s", (alias,))
     return cur.fetchone() is not None
+
+def url_stats(alias):
+    print "***stats***" #
+    cur.execute ("SELECT * FROM urls WHERE alias = %s",(alias[:-1],))
+    id, long_url, alias, clicks = cur.fetchone()
+    print id,long_url,alias,clicks
+    return render_template('stat.html',long_url = long_url,slit_url = myhost + alias,clicks = clicks)
     
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -68,9 +76,13 @@ def home():
 
 @app.route('/<alias>')
 def redirect_short_url(alias):
+    print "***alias[-1]",alias[-1] #
+    if alias[-1] == '~':
+        print "***condition ok***" #
+        return url_stats(alias)
     cur.execute ("SELECT longurl FROM urls WHERE alias = %s",(alias,))
     try:
-        long_url = cur.fetchall()[0][0]
+        long_url = cur.fetchone()[0]
         print "***long-url:",long_url,"***"
         cur.execute ("UPDATE urls SET clicks = clicks + 1 WHERE alias = %s",(alias,))
         return redirect(long_url)

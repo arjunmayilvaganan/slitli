@@ -45,6 +45,10 @@
 					<img class="clippy" src="{{ url_for('static', filename='clippy.svg') }}" width="13" alt="Copy to clipboard">
 				</button>
 			</div>
+			<div class="form-group">
+				<label for="slit-url">Click Stats:</label>
+				<input type="text" class="form-control" name="slit-url" id="slit-url" value="{{slit_url+'~'}}" readonly>
+			</div>
 			
 			{% endif %}
 		</form>
