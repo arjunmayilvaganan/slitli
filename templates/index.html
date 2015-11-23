@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Slitli URL Shortener</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}"/>
 	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-theme.min.css') }}"/>
 	<link rel="stylesheet" href="{{ url_for('static', filename='mystylesheet.css') }}"/>
@@ -20,14 +21,24 @@
 				<label for="custom-alias">Custom Alias (Optional) :</label>
 				<input type="text" class="form-control" id="custom-alias" name="custom-alias" placeholder="Enter Custom Alias (Optional)" maxlength="10">
 			</div>
+			
+			{% if err_msg %}
+			
+			<div class="form-group">
+				<input type="text" class="form-control" name="err-msg" id="err-msg" value="{{err_msg}}" style="text-align:center;" readonly>
+			</div>
+			
+			{% endif %}
+			
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary center-block" style="width:100%;">Slit</button>
 			</div>
+			
 			{% if slit_url %}
 				
 			<div class="form-group">
 				<label for="slit-url">Slit URL:</label>
-				<input type="text" class="form-control" name="slit-url" id="slit-url" value="{{slit_url}}">
+				<input type="text" class="form-control" name="slit-url" id="slit-url" value="{{slit_url}}" readonly>
 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary center-block" type="button" style="width:100%;" data-clipboard-demo data-clipboard-target="#slit-url">
