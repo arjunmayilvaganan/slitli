@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Slitli URL Shortener</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-theme.min.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='mystylesheet.css') }}"/>
+</head>
+<body>
+	<div class="container div-centralise container-fluid col-lg-4 col-md-6 col-sm-8 col-xs-10">
+		<div class="jumbotron">
+			<h1>404</h1> 
+			<p>Currently, there is no webpage linked with this Alias.</p>
+			<a href="http://slitli.herokuapp.com">
+				<button class="btn btn-primary center-block" style="width:100%;">
+					Take me to Slitli Home Page.
+				</button>
+			</a>
+		</div>
+	</div>
+	
+	
+	<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='clipboard.min.js') }}"></script>
+	<script>
+	var clipboard = new Clipboard('.btn');
+	clipboard.on('success', function(e) {
+		console.log(e);
+	});
+	clipboard.on('error', function(e) {
+		console.log(e);
+	});
+	</script>
+</body>
+</html>
