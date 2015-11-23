@@ -19,7 +19,7 @@ db = psycopg2.connect(
 cur = db.cursor()
 db.autocommit = True
 
-myhost = 'http://slitli.heroku.com/'
+host = 'http://slit.li/'
 app = Flask(__name__)
 
 def valid(long_url):
@@ -43,7 +43,7 @@ def url_stats(alias):
     cur.execute ("SELECT * FROM urls WHERE alias = %s",(alias[:-1],))
     id, long_url, alias, clicks = cur.fetchone()
     print id,long_url,alias,clicks
-    return render_template('stat.html',long_url = long_url,slit_url = myhost + alias,clicks = clicks)
+    return render_template('stat.html',long_url = long_url,slit_url = host + alias,clicks = clicks)
     
 
 @app.route('/', methods=['GET', 'POST'])
@@ -69,7 +69,7 @@ def home():
             return render_template('index.html',err_msg = "Alias already taken.")
         cur.execute ("INSERT INTO urls (longurl,alias,clicks) VALUES (%s,%s,0)",(long_url,alias))
         print "***inserted***" #
-        return render_template('index.html',slit_url = myhost + alias)
+        return render_template('index.html',slit_url = host + alias)
     return render_template('index.html')
 
 
