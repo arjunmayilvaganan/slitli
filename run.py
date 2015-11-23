@@ -1,7 +1,7 @@
 import os
 import psycopg2
 import random
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, send_from_directory
 import string, sqlite3
 import urlparse
 
@@ -77,9 +77,12 @@ def redirect_short_url(alias):
     except:
         return render_template('404.html')
 
-
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+                               
 if __name__ == '__main__':
     print "***initiated***" #
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0',port=port)
-    app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
