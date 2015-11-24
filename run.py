@@ -2,13 +2,15 @@ import os
 import psycopg2
 import random
 from flask import Flask, request, render_template, redirect, send_from_directory
-import string, sqlite3
+import string
 import urlparse
 
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
 db = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+
+
 cur = db.cursor()
 db.autocommit = True
 

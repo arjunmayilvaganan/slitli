@@ -12,7 +12,7 @@
 	<a href="https://github.com/arjunmayilvaganan/Slitli"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 	<div class="container div-centralise container-fluid col-lg-4 col-md-6 col-sm-8 col-xs-10">
 		<h2>Slit URL</h2>
-		<form method="post" role="form" action="">
+		<form method="post" role="form">
 			<div class="form-group">
 				<label for="long-url">Long URL :</label>
 				<input type="url" class="form-control" id="long-url" name="long-url" placeholder="Enter Long URL">
@@ -46,8 +46,8 @@
 				</button>
 			</div>
 			<div class="form-group">
-				<label for="slit-url">Click Stats:</label>
-				<input type="text" class="form-control" name="slit-url" id="slit-url" value="{{slit_url+'~'}}" readonly>
+				<label for="url-stats">Click Stats:</label>
+				<input type="text" class="form-control" name="url-stats" id="url-stats" value="{{slit_url+'~'}}" readonly>
 			</div>
 			
 			{% endif %}
