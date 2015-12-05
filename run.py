@@ -37,9 +37,9 @@ def url_stats(alias):
     cur.execute ("SELECT * FROM urls WHERE alias = %s", (alias[:-1],))
     try:
         id, long_url, alias, clicks = cur.fetchone()
-        return render_template('stat.html', long_url = long_url, slit_url = host + alias, clicks = clicks)
+        return render_template('stat.html', host = host, long_url = long_url, slit_url = host + alias, clicks = clicks)
     except:
-        return render_template('404.html')
+        return render_template('404.html', host = host)
     
 
 @app.route('/', methods=['GET', 'POST'])
