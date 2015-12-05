@@ -73,7 +73,7 @@ def redirect_short_url(alias):
         cur.execute ("UPDATE urls SET clicks = clicks + 1 WHERE alias = %s",(alias,))
         return redirect(long_url)
     except:
-        return render_template('404.html')
+        return render_template('404.html', host = host)
 
 
 @app.route('/favicon.ico')
