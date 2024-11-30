@@ -2,7 +2,6 @@ import os
 import psycopg2
 import random
 from flask import Flask, request, render_template, redirect, send_from_directory
-import string
 import urllib.parse
 
 # Parse the DATABASE_URL from environment variables
@@ -19,6 +18,12 @@ db.autocommit = True
 PORT = int(os.environ.get("PORT", 3001))
 # Host for URL generation
 HOST = os.environ.get("HOST", 'http://127.0.0.1')
+
+if os.environ.get("FLASK_ENV") == "development":  # Check if we're in development
+    HOST = f"{HOST}:{PORT}/"  # Include the port in local development
+else:
+    HOST = f"{HOST}/"
+
 # Max table capacity
 MAX_CAPACITY = int(os.environ.get("MAX_CAPACITY", 1000))
 
