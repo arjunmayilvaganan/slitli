@@ -3,10 +3,10 @@ import psycopg2
 import random
 from flask import Flask, request, render_template, redirect, send_from_directory
 import string
-import urlparse
+import urllib.parse
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
+urllib.parse.uses_netloc.append("postgres")
+url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
 
 db = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
 
@@ -47,7 +47,7 @@ def home():
     if request.method == 'POST':
         long_url = request.form.get('long-url')
         alias = request.form.get('custom-alias')
-        if urlparse.urlparse(long_url).scheme == '':
+        if urllib.parse.urlparse(long_url).scheme == '':
             long_url = 'http://' + long_url
         if not valid(long_url):
             return render_template('index.html',err_msg = "Enter a Valid URL.")
@@ -81,5 +81,5 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
                                
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 3001))
     app.run(host='0.0.0.0',port=port)
