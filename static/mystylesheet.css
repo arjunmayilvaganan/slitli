@@ -4,3 +4,18 @@
 	  left: 50%;
 	  transform: translate(-50%, -50%);
 }
+
+.github-button-container {
+    position: fixed;
+    top: 10px; /* Slight top padding */
+    right: 10px; /* Slight right padding */
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    align-items: flex-start; /* Aligns the button to the top */
+    z-index: 1000; /* Keeps the button above other elements */
+}
+
+.github-button-container a {
+    padding: 10px 20px; /* Optional padding for button */
+    border-radius: 5px; /* Optional, if you want rounded corners */
+}
